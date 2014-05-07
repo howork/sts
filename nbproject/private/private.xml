@@ -7,9 +7,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Devel/SmartTalk/sts/LICENSE.txt</file>
-            <file>file:/C:/Devel/SmartTalk/sts/README.md</file>
-            <file>file:/C:/Devel/SmartTalk/sts/LICENSE-KOR.txt</file>
+            <file>file:/C:/Devel/SmartTalk/sts/xToken.c</file>
+            <file>file:/C:/Devel/SmartTalk/sts/xTryCatch.h</file>
+            <file>file:/C:/Devel/SmartTalk/sts/xUtil.h</file>
+            <file>file:/C:/Devel/SmartTalk/sts/tests/xTryCatchTest.c</file>
+            <file>file:/C:/Devel/SmartTalk/sts/xTryCatch.c</file>
+            <file>file:/C:/Devel/SmartTalk/sts/xUtil.c</file>
+            <file>file:/C:/Devel/SmartTalk/sts/xToken.h</file>
             <file>file:/C:/Devel/SmartTalk/sts/main.c</file>
         </group>
     </open-files>
