@@ -13,7 +13,7 @@
 int main(int argc, char* argv[]) {
 
     xtry {
-        xToken* tok = xToken_createInt(10);
+        xToken* tok = xToken_createInt(123);
         char tmp[100];
         printf("%s\n", xToken_toString(tok, tmp));
         xToken_free(tok);
