@@ -10,10 +10,18 @@
    It presupposes that the given tag value is an element of the enumeration (other than XINT, XFLOAT, XID).
  */
 
-xToken* xToken_createSimple(xTokenTag tag) 
+xToken* xToken_createSimple(xTokenTag kind) 
 {
     xToken* tok = xalloc(xToken);
-    tok->tag = tag;
+    tok->tag = kind;
+    return tok;
+}
+
+
+xToken* xToken_create(int tag, char *lexeme) 
+{
+    xToken* tok = xToken_createSimple(tag);
+    tok->value.lexeme = xstrdup(lexeme);
     return tok;
 }
 
@@ -47,23 +55,12 @@ xToken* xToken_createFloat(xfloat value)
 
 xToken* xToken_createId(char *lexeme) 
 {
-    xToken* tok = xToken_createSimple(XID);
-    tok->value.lexeme = xstrdup(lexeme);
-    return tok;
+    return xToken_create(XID, lexeme);
 }
 
-
-static char *xxxTokenString[] = {
-#define x(tok, str) str,
-        XTOKEN_LIST_SPEICAL_CHARS
-//        XTOKEN_LIST_RESERVED_WORD     
-//        XTOKEN_LIST_EXTRA
-#undef x
-};
-
-/* returns an external representation of a given token. 
+/*
+ 문자열 buf 토큰을 문자열로 변활할 만큼 충분한 메모리를 확보하고 있어야 한다.
  */
-
 char* xToken_toString(xToken* tok, char* buf) 
 {
     if (tok->tag == XID) {
@@ -78,20 +75,17 @@ char* xToken_toString(xToken* tok, char* buf)
         sprintf(buf, "value = %g\n", tok->value.xfloat);
         return buf;
     }
-    sprintf(buf, "<%s>\n", xxxTokenString[tok->tag]);
+    sprintf(buf, "<%s>\n", tok->value.lexeme);
     return buf;
 }
 
-/* The free_token function deallocates the storage associated with the
-   token pointer to which its argument points.
-
-   This function does free dynamic storage for strings in the
-   lexeme field of identifier and basic-type tokens.
+/*
+ 토큰(토큰에 할당된 메모리)을 해제한다. 
+ 토큰 생성시 부가적으로 할당된 메모리(lexeme...)도 해제한다.
  */
-
 void xToken_free(xToken* tok) 
 {
-    if (tok->tag == XID) {
+    if (tok->tag != XINT && tok->tag != XFLOAT) {
         xfree(tok->value.lexeme);
     }
 

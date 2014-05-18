@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>xLexer.h</itemPath>
+      <itemPath>xSymbolTable.h</itemPath>
       <itemPath>xToken.h</itemPath>
       <itemPath>xTryCatch.h</itemPath>
       <itemPath>xUtil.h</itemPath>
@@ -16,6 +18,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>main.c</itemPath>
+      <itemPath>xLexer.c</itemPath>
+      <itemPath>xSymbolTable.c</itemPath>
       <itemPath>xToken.c</itemPath>
       <itemPath>xTryCatch.c</itemPath>
       <itemPath>xUtil.c</itemPath>
@@ -79,6 +83,14 @@
       </item>
       <item path="tests/xTryCatchTest.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="xLexer.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="xLexer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="xSymbolTable.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="xSymbolTable.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="xToken.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="xToken.h" ex="false" tool="3" flavor2="0">
@@ -136,6 +148,14 @@
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="tests/xTryCatchTest.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="xLexer.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="xLexer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="xSymbolTable.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="xSymbolTable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="xToken.c" ex="false" tool="0" flavor2="0">
       </item>

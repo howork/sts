@@ -33,7 +33,7 @@ typedef unsigned long long  uint64;
 typedef uint32              uint;
 typedef uint8               byte;
 
-typedef int                 bool; 
+//typedef int                 bool; 
 
 typedef uint                xint;
 typedef double              xfloat;
@@ -51,31 +51,37 @@ DECL_XTRY_CATCH(EX_ALLOC, EX_FREE);
 
 #ifdef DEBUG
     #define DD      do { \
-                        if (1) fprintf(stderr, "DEBUG[ %s:%d:%s() ]\n", __FILE__, __LINE__, __func__); \
+                        if (1) fprintf(stderr, "DEBUG[ %s:%d:%s() ]\n", \
+                                        __FILE__, __LINE__, __func__);  \
                     } while (0);
 #else
     #define DD      do { \
-                        if (0) fprintf(stderr, "DEBUG[ %s:%d:%s() ]\n", __FILE__, __LINE__, __func__); \
+                        if (0) fprintf(stderr, "DEBUG[ %s:%d:%s() ]\n", \
+                                        __FILE__, __LINE__, __func__);  \
                     } while (0);
 #endif
 
 #ifdef DEBUG
     #define DDS(str)    do { \
-                            if (1) fprintf(stderr, "DEBUG[ %s:%d:%s() ] %s \n", __FILE__, __LINE__, __func__, str); \
+                            if (1) fprintf(stderr, "DEBUG[ %s:%d:%s() ] %s \n", \
+                                        __FILE__, __LINE__, __func__, str); \
                         } while (0)
 #else
     #define DDS(str)    do { \
-                            if (0) fprintf(stderr, "DEBUG[ %s:%d:%s() ] %s \n", __FILE__, __LINE__, __func__, str); \
+                            if (0) fprintf(stderr, "DEBUG[ %s:%d:%s() ] %s \n", \
+                                        __FILE__, __LINE__, __func__, str); \
                         } while (0)
 #endif
 
 #ifdef DEBUG
     #define DD2(fmt, args...)   do { \
-                                if (1) fprintf(stderr, " DEBUG[ %s:%d:%s() ] " fmt, __FILE__, __LINE__, __func__, ##args); \
+                                if (1) fprintf(stderr, " DEBUG[ %s:%d:%s() ] " fmt, \
+                                        __FILE__, __LINE__, __func__, ##args); \
                             } while (0)
 #else
     #define DD2(fmt, args...)   do { \
-                                if (0) fprintf(stderr, " DEBUG[ %s:%d:%s() ] " fmt, __FILE__, __LINE__, __func__, ##args); \
+                                if (0) fprintf(stderr, " DEBUG[ %s:%d:%s() ] " fmt, \
+                                        __FILE__, __LINE__, __func__, ##args); \
                             } while (0)
 #endif
 
@@ -106,9 +112,14 @@ DECL_XTRY_CATCH(EX_ALLOC, EX_FREE);
 // inline functions require C99 standard
 
 #define xalloc(type)            (type*)xxalloc(sizeof(type))
-#define xnalloc(rawtype, size)  (rawtype)xxalloc(size)
+#define xnalloc(type, count)    (type*)xxalloc(sizeof(type)*(count))
+#define xtalloc(type, size)     (type)xxalloc(size)
 
 #define xfree(p)                xxfree(p)
+
+#define xstrdup(p)              xxstrdup(p)
+#define xmemdup(type, p)        (type*)xxmemdup(p, sizeof(type))
+
 
 /// 메모리 할당
 void* xxalloc(int size);
@@ -117,7 +128,10 @@ void* xxalloc(int size);
 void xxfree(void* p);
 
 /// 문자열 복제
-char* xstrdup(char str[]);
+char* xxstrdup(char str[]);
+
+/// 메모리 복제
+void* xxmemdup(void* src, int size);
 
 #ifdef __cplusplus
 }

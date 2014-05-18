@@ -9,14 +9,53 @@
 
 #include "xUtil.h"
 #include "xToken.h"
+#include "xSymbolTable.h"
+#include "xLexer.h"
 
 int main(int argc, char* argv[]) {
 
     xtry {
-        xToken* tok = xToken_createInt(123);
-        char tmp[100];
-        printf("%s\n", xToken_toString(tok, tmp));
-        xToken_free(tok);
+        {
+            xToken* tk = xToken_createInt(123);
+            printToken(tk);
+            xToken_free(tk);
+        }
+        
+        {
+            xSymbolTable* table = xSymbolTable_create(0);
+    
+//             xToken* tkFor = xToken_create(XFOR, "for");
+//             xSymbolTable_put(table, "for", tkFor);
+//             xToken* x = xSymbolTable_get(table, "for");
+//             printToken(tkFor);
+//             printToken(x);
+//            xToken_free(tkFor);
+
+            struct {
+                        char* name;
+                        xTokenTag tag;
+                    } keywords[] = {
+                        { "if",     XIF     },
+                        { "else",   XELSE   },
+                        { "while",  XWHILE  },
+                        { "do",     XDO     },
+                        { "break",  XBREAK  },
+                        { "true",   XTRUE   },
+                        { "false",  XFALSE  },
+                    };
+            
+            for (int i = 0; i < sizeof(keywords) / sizeof(keywords[0]); i++) {
+                xSymbolTable_put(table, keywords[i].name, xToken_create(keywords[i].tag, keywords[i].name));
+            }
+
+            xLexer* lex = xLexer_create(table, stdin);
+            xToken* tk = xLexer_scan(lex);
+            printToken(tk);
+
+            xSymbolTable_free(table);
+            xLexer_free(lex);
+        }
+        
     }
     xcatch(EX_ALLOC) {
         DDS("memory alloc error");
@@ -28,8 +67,6 @@ int main(int argc, char* argv[]) {
         printf("Good bye!\n");
     }
     xendtry;
-    
-    
     
     return (EXIT_SUCCESS);
 }

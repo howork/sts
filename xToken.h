@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#include <stdio.h>
+#include "xUtil.h"
 
 /*
     Tokens are identified by tags, which are small integers (first column).
@@ -162,6 +162,8 @@ typedef struct _xToken {
 
 /// 단순 타입의 토큰객체을 생성한다.
 xToken* xToken_createSimple(xTokenTag kind);
+/// 
+xToken* xToken_create(int kind, char *lexeme);
 /// XINT 타입의 토큰객체을 생성한다.
 xToken* xToken_createInt(xint value);
 /// XFLOAT 타입의 토큰객체을 생성한다.
@@ -175,7 +177,12 @@ char* xToken_toString(xToken* tok, char buf[]);
 /// 토큰 객체를 해제한다.
 void xToken_free(xToken* tok);
 
-
+#define printToken(tok)     \
+        do {                                            \
+            char tmp[100];                              \
+            printf("%s\n", xToken_toString(tok, tmp));  \
+        } while(0)                                      //
+    
 #ifdef __cplusplus
 }
 #endif

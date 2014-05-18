@@ -36,6 +36,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/xLexer.o \
+	${OBJECTDIR}/xSymbolTable.o \
 	${OBJECTDIR}/xToken.o \
 	${OBJECTDIR}/xTryCatch.o \
 	${OBJECTDIR}/xUtil.o
@@ -75,6 +77,16 @@ ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
+
+${OBJECTDIR}/xLexer.o: xLexer.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/xLexer.o xLexer.c
+
+${OBJECTDIR}/xSymbolTable.o: xSymbolTable.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/xSymbolTable.o xSymbolTable.c
 
 ${OBJECTDIR}/xToken.o: xToken.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -118,6 +130,32 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.c
 	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.c;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
+	fi
+
+${OBJECTDIR}/xLexer_nomain.o: ${OBJECTDIR}/xLexer.o xLexer.c 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/xLexer.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/xLexer_nomain.o xLexer.c;\
+	else  \
+	    ${CP} ${OBJECTDIR}/xLexer.o ${OBJECTDIR}/xLexer_nomain.o;\
+	fi
+
+${OBJECTDIR}/xSymbolTable_nomain.o: ${OBJECTDIR}/xSymbolTable.o xSymbolTable.c 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/xSymbolTable.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/xSymbolTable_nomain.o xSymbolTable.c;\
+	else  \
+	    ${CP} ${OBJECTDIR}/xSymbolTable.o ${OBJECTDIR}/xSymbolTable_nomain.o;\
 	fi
 
 ${OBJECTDIR}/xToken_nomain.o: ${OBJECTDIR}/xToken.o xToken.c 
